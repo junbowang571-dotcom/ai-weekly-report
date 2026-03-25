@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 行业资讯周报 | 2026.03.18 – 03.25</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0e1a;--surface:#111827;--surface2:#1a2235;--surface3:#1e293b;
+  --accent:#6366f1;--accent2:#818cf8;--accent-glow:rgba(99,102,241,.15);
+  --cyan:#22d3ee;--emerald:#34d399;--amber:#fbbf24;--rose:#fb7185;--violet:#a78bfa;
+  --text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
+  --glass:rgba(17,24,39,.6);--border:rgba(99,102,241,.15);
+  --grad1:linear-gradient(135deg,#6366f1,#8b5cf6,#a855f7);
+  --grad2:linear-gradient(135deg,#06b6d4,#22d3ee);
+  --grad3:linear-gradient(135deg,#f59e0b,#fbbf24);
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+
+/* Animated BG */
+.bg-grid{position:fixed;inset:0;z-index:0;
+  background-image:radial-gradient(circle at 1px 1px,rgba(99,102,241,.08) 1px,transparent 0);
+  background-size:40px 40px;pointer-events:none}
+.bg-glow{position:fixed;z-index:0;border-radius:50%;filter:blur(120px);opacity:.3;pointer-events:none;animation:float 20s ease-in-out infinite}
+.bg-glow.a{width:600px;height:600px;background:#6366f1;top:-200px;left:-100px}
+.bg-glow.b{width:500px;height:500px;background:#06b6d4;bottom:-200px;right:-100px;animation-delay:-10s}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,30px)}}
+
+/* Navbar */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(10,14,26,.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:.3s}
+.nav-brand{display:flex;align-items:center;gap:.75rem;font-size:1.1rem;font-weight:700}
+.nav-brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+.nav-links{display:flex;gap:.25rem}
+.nav-links a{padding:.5rem 1rem;border-radius:8px;color:var(--text2);text-decoration:none;font-size:.875rem;transition:.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text);background:var(--accent-glow)}
+
+/* Hero */
+.hero{position:relative;z-index:1;padding:8rem 2rem 4rem;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:999px;background:var(--accent-glow);border:1px solid var(--border);font-size:.8rem;color:var(--accent2);margin-bottom:1.5rem}
+.hero-badge .live{width:8px;height:8px;border-radius:50%;background:var(--emerald);animation:pulse-dot 1.5s infinite}
+.hero h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;margin-bottom:1rem}
+.hero p{font-size:1.15rem;color:var(--text2);max-width:700px;margin:0 auto 2rem}
+
+/* Stats Bar */
+.stats-bar{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-top:2rem}
+.stat-pill{display:flex;align-items:center;gap:.6rem;padding:.6rem 1.2rem;border-radius:12px;background:var(--surface);border:1px solid var(--border)}
+.stat-pill .icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.stat-pill .icon.blue{background:rgba(99,102,241,.15);color:var(--accent2)}
+.stat-pill .icon.cyan{background:rgba(34,211,238,.15);color:var(--cyan)}
+.stat-pill .icon.amber{background:rgba(251,191,36,.15);color:var(--amber)}
+.stat-pill .icon.rose{background:rgba(251,113,133,.15);color:var(--rose)}
+.stat-pill .icon.emerald{background:rgba(52,211,153,.15);color:var(--emerald)}
+.stat-pill .val{font-size:1.1rem;font-weight:700;color:var(--text)}
+.stat-pill .label{font-size:.75rem;color:var(--text3)}
+
+/* Container */
+.container{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 2rem}
+
+/* Section */
+.section{margin-bottom:4rem}
+.section-header{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem}
+.section-header .tag{padding:.3rem .8rem;border-radius:6px;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.section-header .tag.blue{background:rgba(99,102,241,.15);color:var(--accent2)}
+.section-header .tag.cyan{background:rgba(34,211,238,.15);color:var(--cyan)}
+.section-header .tag.violet{background:rgba(167,139,250,.15);color:var(--violet)}
+.section-header .tag.amber{background:rgba(251,191,36,.15);color:var(--amber)}
+.section-header .tag.emerald{background:rgba(52,211,153,.15);color:var(--emerald)}
+.section-header h2{font-size:1.5rem;font-weight:700}
+
+/* Cards Grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.25rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:.3s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad1);opacity:0;transition:.3s}
+.card:hover{transform:translateY(-4px);border-color:rgba(99,102,241,.3);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.card:hover::before{opacity:1}
+.card .card-source{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.card .source-name{font-size:.75rem;color:var(--text3)}
+.card .date{font-size:.75rem;color:var(--text3);background:var(--surface3);padding:.2rem .6rem;border-radius:4px}
+.card h3{font-size:1.05rem;font-weight:700;margin-bottom:.75rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card p{font-size:.9rem;color:var(--text2);line-height:1.7;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.card .card-tags{display:flex;gap:.4rem;margin-top:1rem;flex-wrap:wrap}
+.card .card-tags span{font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--surface3);color:var(--text3)}
+
+/* Accent cards */
+.card.accent-cyan::before{background:var(--grad2)}
+.card.accent-amber::before{background:var(--grad3)}
+.card.accent-rose::before{background:linear-gradient(135deg,#e11d48,#fb7185)}
+
+/* Timeline */
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--cyan),var(--emerald))}
+.timeline-item{position:relative;margin-bottom:1.5rem;padding-left:1.5rem}
+.timeline-item::before{content:'';position:absolute;left:-2rem;top:.5rem;width:16px;height:16px;border-radius:50%;border:3px solid var(--accent);background:var(--bg)}
+.timeline-item .t-content{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.timeline-item .t-date{font-size:.75rem;color:var(--accent2);margin-bottom:.4rem}
+.timeline-item .t-text{font-size:.9rem;color:var(--text2)}
+
+/* Deep dive section */
+.insight-card{background:var(--surface);border:1px solid rgba(167,139,250,.2);border-radius:16px;padding:1.75rem;margin-bottom:1.25rem;position:relative;overflow:hidden;transition:.3s}
+.insight-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:linear-gradient(to bottom,#8b5cf6,#a78bfa)}
+.insight-card:hover{border-color:rgba(167,139,250,.4);box-shadow:0 8px 40px rgba(139,92,246,.1)}
+.insight-card .insight-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem}
+.insight-card h3{font-size:1.1rem;font-weight:700;color:var(--violet);margin-bottom:.1rem;flex:1}
+.insight-card .insight-link{color:var(--violet);font-size:.8rem;text-decoration:none;white-space:nowrap;padding:.3rem .6rem;border-radius:6px;border:1px solid rgba(167,139,250,.3);transition:.2s}
+.insight-card .insight-link:hover{background:rgba(167,139,250,.1)}
+.insight-card .core-view{background:rgba(167,139,250,.08);padding:.75rem 1rem;border-radius:8px;margin-bottom:1rem;font-size:.9rem;color:var(--text);border-left:3px solid var(--violet)}
+.insight-card .points{list-style:none;padding:0}
+.insight-card .points li{position:relative;padding-left:1.25rem;margin-bottom:.5rem;font-size:.875rem;color:var(--text2)}
+.insight-card .points li::before{content:'';position:absolute;left:0;top:.55rem;width:8px;height:8px;border-radius:2px;background:var(--violet);opacity:.6}
+
+/* Implications */
+.impl-card{display:flex;gap:1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1rem;transition:.3s}
+.impl-card:hover{border-color:rgba(52,211,153,.3);box-shadow:0 8px 40px rgba(52,211,153,.08)}
+.impl-num{flex-shrink:0;width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#059669,#34d399);display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:#fff}
+.impl-card h4{font-size:1rem;font-weight:700;margin-bottom:.4rem;color:var(--emerald)}
+.impl-card p{font-size:.875rem;color:var(--text2)}
+
+/* Data table */
+.data-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.data-table th{background:var(--surface2);padding:1rem 1.25rem;text-align:left;font-size:.85rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em}
+.data-table td{padding:.85rem 1.25rem;border-top:1px solid var(--border);font-size:.9rem}
+.data-table tr:nth-child(even) td{background:rgba(30,41,59,.3)}
+.data-table tr:hover td{background:var(--accent-glow)}
+.data-table .val{font-weight:700;color:var(--cyan)}
+
+/* Footer */
+.footer{position:relative;z-index:1;text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);margin-top:4rem;color:var(--text3);font-size:.85rem}
+.footer a{color:var(--accent2);text-decoration:none}
+
+/* Scroll animations */
+.reveal{opacity:0;transform:translateY(30px);transition:.7s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:none}
+
+/* Nav tabs for sections */
+.tab-nav{display:flex;gap:.5rem;margin-bottom:2rem;flex-wrap:wrap}
+.tab-btn{padding:.5rem 1.2rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:.85rem;cursor:pointer;transition:.2s;font-family:inherit}
+.tab-btn:hover{border-color:var(--accent);color:var(--text)}
+.tab-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* Responsive */
+/* Source Cards */
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.25rem}
+.source-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:.3s;display:flex;align-items:flex-start;gap:1.25rem;overflow:hidden;position:relative}
+.source-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--grad2);opacity:0;transition:.3s}
+.source-card:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.3);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.source-card:hover::after{opacity:1}
+.source-icon{flex-shrink:0;width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff}
+.source-icon.media{background:linear-gradient(135deg,#06b6d4,#22d3ee)}
+.source-icon.official{background:linear-gradient(135deg,#6366f1,#818cf8)}
+.source-card .source-info h3{font-size:1rem;font-weight:700;margin-bottom:.35rem}
+.source-card .source-info h3 a{color:var(--text);text-decoration:none;transition:.2s}
+.source-card .source-info h3 a:hover{color:var(--cyan)}
+.source-card .source-meta{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.5rem}
+.source-card .source-meta span{font-size:.7rem;padding:.2rem .5rem;border-radius:4px}
+.source-card .source-meta .type-tag{background:rgba(34,211,238,.1);color:var(--cyan)}
+.source-card .source-meta .freq-tag{background:rgba(52,211,153,.1);color:var(--emerald)}
+.source-card .source-meta .pri-tag.high{background:rgba(251,113,133,.1);color:var(--rose)}
+.source-card .source-meta .pri-tag.mid{background:rgba(251,191,36,.1);color:var(--amber)}
+.source-card .source-url{font-size:.75rem;color:var(--text3);word-break:break-all}
+
+@media(max-width:768px){
+  .hero h1{font-size:2rem}
+  .stats-bar{gap:.75rem}
+  .stat-pill{padding:.5rem .8rem}
+  .cards-grid{grid-template-columns:1fr}
+  .impl-card{flex-direction:column}
+  .nav-links{display:none}
+  .container{padding:0 1rem}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow a"></div>
+<div class="bg-glow b"></div>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-brand"><div class="dot"></div> AI Weekly</div>
+  <div class="nav-links">
+    <a href="#events" class="active">重点事件</a>
+    <a href="#trends">趋势洞察</a>
+    <a href="#deep-dive">深度解读</a>
+    <a href="#implications">钉钉启示</a>
+    <a href="#data">数据一览</a>
+    <a href="#sources">信息源</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge"><div class="live"></div> AI 行业资讯周报</div>
+  <h1>AI 行业在重新定义<br>每一个工作场景</h1>
+  <p>2026年3月18日 – 3月25日：NVIDIA GTC 重磅发布、钉钉悟空上线、GPT-5.4 席卷全球，Agent 元年正式到来。</p>
+
+  <div class="stats-bar">
+    <div class="stat-pill">
+      <div class="icon blue"><i class="fas fa-robot"></i></div>
+      <div><div class="val">500亿+</div><div class="label">中国AI Agent市场规模</div></div>
+    </div>
+    <div class="stat-pill">
+      <div class="icon cyan"><i class="fas fa-dragon"></i></div>
+      <div><div class="val">20万+</div><div class="label">OpenClaw 全球活跃资产</div></div>
+    </div>
+    <div class="stat-pill">
+      <div class="icon amber"><i class="fas fa-fire"></i></div>
+      <div><div class="val">$180亿</div><div class="label">月之暗面最新估值</div></div>
+    </div>
+    <div class="stat-pill">
+      <div class="icon rose"><i class="fas fa-microchip"></i></div>
+      <div><div class="val">5万亿</div><div class="label">中国周Token调用量</div></div>
+    </div>
+    <div class="stat-pill">
+      <div class="icon emerald"><i class="fas fa-building"></i></div>
+      <div><div class="val">2000万+</div><div class="label">钉钉覆盖企业组织</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+<!-- ========== SECTION: KEY EVENTS ========== -->
+<section class="section reveal" id="events">
+  <div class="section-header"><span class="tag blue">HOT</span><h2>本周重点事件</h2></div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-source"><span class="source-name">新浪财经</span><span class="date">2026-03-24</span></div>
+      <h3>NVIDIA 发布 Vera Rubin 全栈 AI 计算平台</h3>
+      <p>GTC 2026 大会上，NVIDIA 正式发布 Vera Rubin 全栈AI计算平台，完整披露下一代AI芯片架构。同时发布 NemoClaw 开源平台，为 OpenClaw 智能体框架增加企业级安全与隐私控制。</p>
+      <div class="card-tags"><span>NVIDIA</span><span>GTC 2026</span><span>Vera Rubin</span><span>NemoClaw</span></div>
+    </div>
+
+    <div class="card accent-cyan">
+      <div class="card-source"><span class="source-name">知乎 / 腾讯云</span><span class="date">2026-03-23</span></div>
+      <h3>OpenClaw 开源智能体框架全球爆火</h3>
+      <p>OpenClaw 被称为"Agent操作系统"，可调用大模型执行任务并连接各种工具。全球活跃资产已超过20万，引发"全民养虾"热潮。专家提醒需关注智能体权限管控与安全问题。</p>
+      <div class="card-tags"><span>OpenClaw</span><span>AI Agent</span><span>开源</span></div>
+    </div>
+
+    <div class="card accent-amber">
+      <div class="card-source"><span class="source-name">新浪财经 / 证券时报</span><span class="date">2026-03-17</span></div>
+      <h3>钉钉官宣"悟空"AI原生工作平台</h3>
+      <p>钉钉创始人陈航官宣AI原生工作平台"悟空（WuKong）"，即日起邀测并内置到覆盖超2000万企业组织的钉钉生态。悟空具备企业级安全沙箱、任务推理及跨模型能力。</p>
+      <div class="card-tags"><span>钉钉</span><span>悟空</span><span>企业AI</span><span>PaaS</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-source"><span class="source-name">OpenAI</span><span class="date">2026-03-05</span></div>
+      <h3>OpenAI GPT-5.4 正式发布，新增原生计算机交互</h3>
+      <p>GPT-5.4 包含 Thinking 和 Pro 两个版本，新增原生计算机交互（Computer Use）能力。随后发布的 GPT-5.4 mini 与 nano 是迄今能力最强的小型模型。GPT-5.1 已于3月11日下架。</p>
+      <div class="card-tags"><span>OpenAI</span><span>GPT-5.4</span><span>Computer Use</span></div>
+    </div>
+
+    <div class="card accent-rose">
+      <div class="card-source"><span class="source-name">腾讯新闻 / 36氪</span><span class="date">2026-03-14</span></div>
+      <h3>月之暗面估值飙升至180亿美元</h3>
+      <p>Kimi 母公司月之暗面正以约180亿美元估值进行新一轮最高10亿美元的融资。从2025年底C轮43亿到现在的180亿，不到三个月翻了四倍，增速超越当年的字节和拼多多。</p>
+      <div class="card-tags"><span>月之暗面</span><span>Kimi</span><span>融资</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-source"><span class="source-name">DevFlokers</span><span class="date">2026-03-24</span></div>
+      <h3>阿里 Qwen 3.5 小模型系列发布</h3>
+      <p>阿里巴巴发布 Qwen 3.5 小模型系列，专为本地硬件优化，支持在边缘设备上运行。Google 同期发布 Gemini 3.1 Flash-Lite 面向企业场景。"小模型+本地部署"赛道竞争加速。</p>
+      <div class="card-tags"><span>Qwen 3.5</span><span>Gemini</span><span>边缘部署</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION: TIMELINE ========== -->
+<section class="section reveal" id="other-events">
+  <div class="section-header"><span class="tag cyan">MORE</span><h2>其他重要动态</h2></div>
+  <div class="timeline">
+    <div class="timeline-item"><div class="t-content"><div class="t-date">03-22</div><div class="t-text">马斯克宣布"Terafab"史上最大造芯计划，目标年产1太瓦AI算力芯片，投资约200亿美元</div></div></div>
+    <div class="timeline-item"><div class="t-content"><div class="t-date">03-23</div><div class="t-text">上周智能科技领域披露25起投融资事件，涉及21家企业，大族机器人完成近1亿美元Pre-IPO融资</div></div></div>
+    <div class="timeline-item"><div class="t-content"><div class="t-date">03-21</div><div class="t-text">Meta 将裁减40%外部审核员，改用AI系统减少审核错误</div></div></div>
+    <div class="timeline-item"><div class="t-content"><div class="t-date">03-20</div><div class="t-text">苹果 WWDC 定档6月召开，将聚焦AI进展，被视为苹果AI反攻起点</div></div></div>
+    <div class="timeline-item"><div class="t-content"><div class="t-date">03-19</div><div class="t-text">研究人员记录"Darwin Gödel Machine"——实现递归自我改进的AI系统</div></div></div>
+    <div class="timeline-item"><div class="t-content"><div class="t-date">03-18</div><div class="t-text">国家数据局加快算力设施集群建设，推进云边端协同；《人工智能法治研究十大议题（2026）》正式发布</div></div></div>
+  </div>
+</section>
+
+<!-- ========== SECTION: TRENDS ========== -->
+<section class="section reveal" id="trends">
+  <div class="section-header"><span class="tag amber">TREND</span><h2>趋势观察与分析</h2></div>
+
+  <div class="cards-grid">
+    <div class="card" style="border-top:3px solid var(--accent)">
+      <h3 style="color:var(--accent2)"><i class="fas fa-bolt" style="margin-right:.5rem"></i>AI Agent 进入规模化落地元年</h3>
+      <p>2026年被广泛认为是"AI Agent元年"。中国AI智能体市场规模突破500亿元，企业对业务流程自动化的需求年增长达72.7%。从钉钉悟空到飞书Aily，从用友"ALL in 企业AI"到OpenClaw全球爆火，各方正全力抢占Agent生态位。</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--cyan)">
+      <h3 style="color:var(--cyan)"><i class="fas fa-rocket" style="margin-right:.5rem"></i>大模型竞争进入"极速迭代"阶段</h3>
+      <p>OpenAI 不到3个月完成 GPT-5.1→5.3→5.4 三次迭代，每个版本生命周期极度压缩。阿里、Google等在"小模型+本地部署"赛道加速。2月中国大模型单周调用量首超美国，突破5万亿Token。</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--amber)">
+      <h3 style="color:var(--amber)"><i class="fas fa-server" style="margin-right:.5rem"></i>算力基础设施竞赛白热化</h3>
+      <p>NVIDIA Vera Rubin、马斯克Terafab、微软"玛雅200"以及国家算力集群建设，均表明算力基础设施正成为AI发展的核心竞争领域。全球各方都在加大算力投入。</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--rose)">
+      <h3 style="color:var(--rose)"><i class="fas fa-shield-alt" style="margin-right:.5rem"></i>AI安全与治理从"讨论"走向"行动"</h3>
+      <p>OpenClaw安全问题的爆发、NemoClaw的发布、AI诱导自杀案例的曝光、以及《人工智能法治研究十大议题》的发布，都表明AI安全与治理已从讨论走向行动。安全合规将成为核心竞争力。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION: DEEP DIVE ========== -->
+<section class="section reveal" id="deep-dive">
+  <div class="section-header"><span class="tag violet">DEEP DIVE</span><h2>专栏深度解读</h2></div>
+  <p style="color:var(--text3);margin:-1rem 0 2rem;font-size:.9rem">基于技术博客 <a href="https://hugozhu.site" target="_blank" style="color:var(--violet);text-decoration:none">hugozhu.site</a> 本周系列深度分析文章</p>
+
+  <div class="insight-card">
+    <div class="insight-header">
+      <h3>悟空的真正价值：把LLM变成可治理的执行系统</h3>
+      <a class="insight-link" href="https://hugozhu.site/post/2026/153-wukong-llm-governable-execution-system/" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> 原文</a>
+    </div>
+    <div class="core-view">核心观点：悟空将LLM从"聊天助手"升级为"可治理的执行系统"，填补了LLM灵活性与RPA执行力之间的空白。LLM从"玩具"变"工具"的关键不在模型本身，而在于可靠的执行框架。</div>
+    <ul class="points">
+      <li>四大支柱：代理循环（可收敛性、停滞检测）+ 工具系统（真实读写验证）+ 治理护栏（最小权限、全链路审计）+ 用户体验（过程可见、状态可控）</li>
+      <li>本质区别：不是更好的聊天机器人，而是能闭环完成真实任务的执行系统</li>
+    </ul>
+  </div>
+
+  <div class="insight-card">
+    <div class="insight-header">
+      <h3>Agent安全是企业安全的新命题——用AI管AI</h3>
+      <a class="insight-link" href="https://hugozhu.site/post/2026/152-agent-security-ai-native-execution-control/" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> 原文</a>
+    </div>
+    <div class="core-view">核心观点：传统访问控制无法应对AI Agent执行风险，需构建"用AI管AI"的实时执行控制体系。威胁从"外部入侵"转为"授权Agent误操作"，Prompt注入可导致指数级错误放大。</div>
+    <ul class="points">
+      <li>四大解法：实时评估、人在环授权（钉钉推送+生物识别）、动态调控、分层架构</li>
+      <li>分层架构采用漏斗式设计（规则→小模型→大模型→人工），安全算力成本控制在3%-8%</li>
+    </ul>
+  </div>
+
+  <div class="insight-card">
+    <div class="insight-header">
+      <h3>当钉钉变成命令行：办公协同Skill的Token交付时代</h3>
+      <a class="insight-link" href="https://hugozhu.site/post/2026/150-dingtalk-cli-office-skills-token-era/" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> 原文</a>
+    </div>
+    <div class="core-view">核心观点：钉钉CLI化让办公需求从定制开发转向"Token交付"。Skill是"办公协同的最小可交付单元"，本质是Prompt+工具定义，而非独立软件。</div>
+    <ul class="points">
+      <li>经济学价值：定制开发数万元 → Token交付年成本仅百余元，变更成本为零</li>
+      <li>未来将涌现Skill市场、组合器及自进化机制，推动"每个员工拥有懂自己的AI助手"</li>
+    </ul>
+  </div>
+
+  <div class="insight-card">
+    <div class="insight-header">
+      <h3>悟空是AI时代的淘宝：Token消费的多快好省</h3>
+      <a class="insight-link" href="https://hugozhu.site/post/2026/146-wukong-taobao-of-ai-token-economy/" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> 原文</a>
+    </div>
+    <div class="core-view">核心观点：Agent工程的终极目标是对Token消耗的"多快好省"优化。Token是AI Agent的"货币"，取代CPU/内存成为核心成本。</div>
+    <ul class="points">
+      <li>多：模型注册表，简单任务用小模型，复杂任务用大模型，通过编排降本</li>
+      <li>快：流式输出、投机执行、预取、语义缓存——"最快的Token是不生成Token"</li>
+      <li>好：结构化Prompt、工具增强、自我验证循环确保质量</li>
+      <li>省：上下文管理是最大成本黑洞，六大杠杆包括Prompt精简、缓存复用、提前终止等</li>
+    </ul>
+  </div>
+
+  <div class="insight-card">
+    <div class="insight-header">
+      <h3>别再卷模型了：To B Agent创业，用户反馈才是生死线</h3>
+      <a class="insight-link" href="https://hugozhu.site/post/2026/151-tob-agent-user-feedback-loop/" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> 原文</a>
+    </div>
+    <div class="core-view">核心观点：模型是入场券，反馈是记分牌。竞争对手可复制架构与数据，但无法获取真实场景的用户反馈数据。</div>
+    <ul class="points">
+      <li>"多快好省"四维指标体系：覆盖度、效率、质量、成本，按任务类型设定权重</li>
+      <li>闭环四环节：采集（隐式+显式）→ 归因（三层诊断）→ 实验（A/B测试）→ 部署（灰度发布）</li>
+      <li>飞轮效应："客户A踩的坑，客户B不用再踩"——实操路径 Day 1→30→90→180</li>
+    </ul>
+  </div>
+
+  <div class="insight-card">
+    <div class="insight-header">
+      <h3>人写规则，Token做实验：AI应用优化新范式</h3>
+      <a class="insight-link" href="https://hugozhu.site/post/2026/147-autoresearch-token-optimization-paradigm/" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> 原文</a>
+    </div>
+    <div class="core-view">核心观点：人应从"执行试错"转为"设计规则"，让AI基于量化指标自动迭代实验。搭配OpenClaw Heartbeat机制可实现Skill自动优化。</div>
+    <ul class="points">
+      <li>范式：人类编写策略文件(program.md)定义目标与边界，AI负责修改/运行/评估/决策</li>
+      <li>角色转变：人从循环内的执行者上移为循环外的架构师</li>
+      <li>完美适配AI客服Prompt优化、SQL查询调优等场景</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== SECTION: IMPLICATIONS ========== -->
+<section class="section reveal" id="implications">
+  <div class="section-header"><span class="tag emerald">INSIGHT</span><h2>对钉钉 AI 解决方案的启示</h2></div>
+
+  <div class="impl-card">
+    <div class="impl-num">1</div>
+    <div>
+      <h4>"悟空"平台的深层机会</h4>
+      <p>悟空的价值不仅是"更好的聊天机器人"，而是把LLM变成可治理的执行系统。建议围绕四大支柱（代理循环、工具系统、治理护栏、用户体验）设计解决方案，及早抢占PaaS生态位。</p>
+    </div>
+  </div>
+  <div class="impl-card">
+    <div class="impl-num">2</div>
+    <div>
+      <h4>Agent安全是核心卖点</h4>
+      <p>采用"分层漏斗"架构（规则→小模型→大模型→人工）设计安全方案，利用钉钉推送+生物识别实现"AI时代U盾"，将安全算力成本控制在3%-8%。这是对比飞书Aily的关键差异化点。</p>
+    </div>
+  </div>
+  <div class="impl-card">
+    <div class="impl-num">3</div>
+    <div>
+      <h4>Skill生态与Token经济学</h4>
+      <p>钉钉CLI化让办公需求以Token交付。建议帮助企业建立Token消耗的"多快好省"优化体系，通过模型注册表、语义缓存、上下文精简等手段降低AI使用成本。未来应重点关注Skill市场和组合器机会。</p>
+    </div>
+  </div>
+  <div class="impl-card">
+    <div class="impl-num">4</div>
+    <div>
+      <h4>反馈闭环是护城河</h4>
+      <p>"模型是入场券，反馈是记分牌"。从Day 1开始建设用户反馈采集与归因体系，通过飞轮效应构建护城河。建议30天内跑通最小反馈闭环，90天内实现自动化归因管线。</p>
+    </div>
+  </div>
+  <div class="impl-card">
+    <div class="impl-num">5</div>
+    <div>
+      <h4>Autoresearch赋能客户</h4>
+      <p>帮助企业识别内部"试错循环"工作，用"人写规则，Token做实验"范式提升运营效率。客服Prompt优化、数据查询调优等场景可直接落地，搭配OpenClaw Heartbeat实现持续自优化。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION: DATA ========== -->
+<section class="section reveal" id="data">
+  <div class="section-header"><span class="tag blue">DATA</span><h2>本周数据一览</h2></div>
+  <table class="data-table">
+    <thead><tr><th>指标</th><th>数据</th></tr></thead>
+    <tbody>
+      <tr><td>中国AI智能体市场规模</td><td class="val">突破500亿元，企业需求年增72.7%</td></tr>
+      <tr><td>OpenClaw全球活跃资产</td><td class="val">超20万</td></tr>
+      <tr><td>月之暗面最新估值</td><td class="val">~180亿美元，3个月翻4倍</td></tr>
+      <tr><td>上周智能科技投融资</td><td class="val">25起事件，涉及21家企业</td></tr>
+      <tr><td>中国大模型周调用量</td><td class="val">首超美国，突破5万亿Token（2月）</td></tr>
+      <tr><td>钉钉覆盖企业组织</td><td class="val">超2000万</td></tr>
+      <tr><td>Agent安全算力成本占比</td><td class="val">可控制在3%-8%（分层架构）</td></tr>
+      <tr><td>Token交付 vs 定制开发成本</td><td class="val">年百余元 vs 数万元</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========== SECTION: SOURCES ========== -->
+<section class="section reveal" id="sources">
+  <div class="section-header"><span class="tag cyan">FEED</span><h2>核心信息源</h2></div>
+  <p style="color:var(--text3);margin:-1rem 0 2rem;font-size:.9rem">以下是本报告的核心信息采集渠道，涵盖权威科技媒体与全球AI官方账号</p>
+
+  <div class="sources-grid">
+    <div class="source-card">
+      <div class="source-icon media"><i class="fas fa-newspaper"></i></div>
+      <div class="source-info">
+        <h3><a href="https://www.36kr.com/information/AI/" target="_blank">36氪 AI 频道</a></h3>
+        <div class="source-meta">
+          <span class="type-tag">权威科技媒体</span>
+          <span class="freq-tag">每日更新</span>
+          <span class="pri-tag high">高优先</span>
+        </div>
+        <div class="source-url">36kr.com/information/AI</div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="source-icon media"><i class="fas fa-brain"></i></div>
+      <div class="source-info">
+        <h3><a href="https://www.jiqizhixin.com/trends/68bee5aa-3b89-40fe-8165-66c34cbdb522" target="_blank">机器之心</a></h3>
+        <div class="source-meta">
+          <span class="type-tag">权威科技媒体</span>
+          <span class="freq-tag">每日更新</span>
+          <span class="pri-tag high">高优先</span>
+        </div>
+        <div class="source-url">jiqizhixin.com</div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="source-icon media"><i class="fas fa-atom"></i></div>
+      <div class="source-info">
+        <h3><a href="https://www.qbitai.com/" target="_blank">量子位</a></h3>
+        <div class="source-meta">
+          <span class="type-tag">权威科技媒体</span>
+          <span class="freq-tag">每日更新</span>
+          <span class="pri-tag high">高优先</span>
+        </div>
+        <div class="source-url">qbitai.com</div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="source-icon official"><i class="fab fa-openai"></i></div>
+      <div class="source-info">
+        <h3><a href="https://openai.com/blog" target="_blank">OpenAI Blog</a></h3>
+        <div class="source-meta">
+          <span class="type-tag">官方账号</span>
+          <span class="freq-tag">每周更新</span>
+          <span class="pri-tag high">高优先</span>
+        </div>
+        <div class="source-url">openai.com/blog</div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="source-icon official"><i class="fab fa-google"></i></div>
+      <div class="source-info">
+        <h3><a href="https://blog.google/technology/ai/" target="_blank">Google AI Blog</a></h3>
+        <div class="source-meta">
+          <span class="type-tag">官方账号</span>
+          <span class="freq-tag">每周更新</span>
+          <span class="pri-tag high">高优先</span>
+        </div>
+        <div class="source-url">blog.google/technology/ai</div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="source-icon official"><i class="fab fa-microsoft"></i></div>
+      <div class="source-info">
+        <h3><a href="https://www.microsoft.com/en-us/research/research-area/artificial-intelligence/" target="_blank">Microsoft Research AI</a></h3>
+        <div class="source-meta">
+          <span class="type-tag">官方账号</span>
+          <span class="freq-tag">每周更新</span>
+          <span class="pri-tag mid">中优先</span>
+        </div>
+        <div class="source-url">microsoft.com/research</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>数据来源：OpenAI官网、新浪财经、腾讯新闻、36氪、亿欧网、NVIDIA官网、<a href="https://hugozhu.site" target="_blank">hugozhu.site</a> 等</p>
+  <p style="margin-top:.5rem">AI 行业资讯周报 · 2026年3月18日 – 3月25日</p>
+</footer>
+
+<script>
+// Scroll reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Active nav on scroll
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
+  navLinks.forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

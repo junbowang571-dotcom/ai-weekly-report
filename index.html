@@ -3,249 +3,606 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 行业资讯日报</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<title>AI 行业资讯日报 - 2026年3月29日</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#0a0e1a;--surface:#111827;--surface2:#1a2235;--surface3:#1e293b;
-  --accent:#6366f1;--accent2:#818cf8;--accent-glow:rgba(99,102,241,.15);
-  --cyan:#22d3ee;--emerald:#34d399;--amber:#fbbf24;--rose:#fb7185;--violet:#a78bfa;
-  --text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
-  --border:rgba(99,102,241,.15);
-  --sidebar-w:280px;
-  --grad1:linear-gradient(135deg,#6366f1,#8b5cf6,#a855f7);
-}
-html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow:hidden;height:100vh}
-
-/* Layout */
-.app{display:flex;height:100vh}
-
-/* Sidebar */
-.sidebar{
-  width:var(--sidebar-w);min-width:var(--sidebar-w);height:100vh;
-  background:var(--surface);border-right:1px solid var(--border);
-  display:flex;flex-direction:column;overflow:hidden;
-  transition:transform .3s;z-index:200;
-}
-.sidebar-header{
-  padding:1.25rem 1.25rem .75rem;border-bottom:1px solid var(--border);flex-shrink:0;
-}
-.sidebar-brand{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
-.sidebar-brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse-dot 2s infinite}
-@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
-.sidebar-brand span{font-size:1.1rem;font-weight:700}
-.sidebar-brand .sub{font-size:.7rem;color:var(--text3);font-weight:400;margin-left:.25rem}
-.sidebar-search{
-  width:100%;padding:.5rem .75rem;border-radius:8px;border:1px solid var(--border);
-  background:var(--surface2);color:var(--text);font-size:.85rem;outline:none;
-  transition:.2s;font-family:inherit;
-}
-.sidebar-search:focus{border-color:var(--accent)}
-.sidebar-search::placeholder{color:var(--text3)}
-
-/* Date list */
-.date-list{flex:1;overflow-y:auto;padding:.75rem}
-.date-list::-webkit-scrollbar{width:4px}
-.date-list::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:2px}
-.date-group{margin-bottom:1rem}
-.date-group-label{
-  font-size:.7rem;font-weight:600;color:var(--text3);text-transform:uppercase;
-  letter-spacing:.06em;padding:0 .5rem .4rem;
-}
-.date-item{
-  display:flex;align-items:center;gap:.75rem;padding:.65rem .75rem;
-  border-radius:10px;cursor:pointer;transition:.2s;position:relative;
-  text-decoration:none;color:var(--text);
-}
-.date-item:hover{background:var(--accent-glow)}
-.date-item.active{background:rgba(99,102,241,.12);color:var(--accent2)}
-.date-item.active::before{
-  content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
-  width:3px;height:60%;border-radius:2px;background:var(--accent);
-}
-.date-icon{
-  width:36px;height:36px;border-radius:8px;display:flex;align-items:center;
-  justify-content:center;font-size:.8rem;flex-shrink:0;
-}
-.date-icon.latest{background:rgba(99,102,241,.15);color:var(--accent2)}
-.date-icon.past{background:var(--surface3);color:var(--text3)}
-.date-info .date-title{font-size:.9rem;font-weight:600;line-height:1.3}
-.date-info .date-weekday{font-size:.7rem;color:var(--text3)}
-
-/* Content area */
-.content{flex:1;height:100vh;position:relative;overflow:hidden}
-.content iframe{width:100%;height:100%;border:none;background:var(--bg)}
-
-/* Empty state */
-.empty-state{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  height:100%;color:var(--text3);gap:1rem;
-}
-.empty-state i{font-size:3rem;opacity:.3}
-.empty-state p{font-size:1rem}
-
-/* Mobile toggle */
-.mobile-toggle{
-  display:none;position:fixed;top:1rem;left:1rem;z-index:300;
-  width:40px;height:40px;border-radius:10px;border:1px solid var(--border);
-  background:var(--surface);color:var(--text);cursor:pointer;
-  align-items:center;justify-content:center;font-size:1rem;
-}
-.sidebar-overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150;
-}
-
-/* Sidebar footer */
-.sidebar-footer{
-  padding:.75rem 1.25rem;border-top:1px solid var(--border);flex-shrink:0;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.sidebar-footer .total{font-size:.75rem;color:var(--text3)}
-.sidebar-footer .live-dot{
-  display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:var(--emerald);
-}
-.sidebar-footer .live-dot::before{
-  content:'';width:6px;height:6px;border-radius:50%;background:var(--emerald);
-  animation:pulse-dot 1.5s infinite;
-}
-
-/* Loading spinner */
-.loading{display:flex;align-items:center;justify-content:center;height:200px}
-.spinner{width:40px;height:40px;border:3px solid var(--surface3);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-@media(max-width:768px){
-  .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%)}
-  .sidebar.open{transform:translateX(0)}
-  .sidebar-overlay.open{display:block}
-  .mobile-toggle{display:flex}
-  .content{margin-left:0}
-}
+  :root {
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-card: #1c2333;
+    --bg-highlight: #1f2940;
+    --border: #30363d;
+    --text-primary: #e6edf3;
+    --text-secondary: #8b949e;
+    --text-muted: #6e7681;
+    --accent-blue: #58a6ff;
+    --accent-green: #3fb950;
+    --accent-orange: #d29922;
+    --accent-purple: #bc8cff;
+    --accent-red: #f85149;
+    --accent-cyan: #39d2c0;
+    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .hero {
+    position: relative;
+    padding: 60px 0 40px;
+    text-align: center;
+    background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(88,166,255,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 50%, rgba(188,140,255,0.06) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(1deg); }
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(88,166,255,0.15);
+    color: var(--accent-blue);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(88,166,255,0.2);
+  }
+  .hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #e6edf3 0%, #58a6ff 50%, #bc8cff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .hero-date {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  .hero-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent-blue);
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .section {
+    margin: 40px 0;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .section-count {
+    margin-left: auto;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    border: 1px solid var(--border);
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .card:hover {
+    border-color: rgba(88,166,255,0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    transform: translateY(-1px);
+  }
+  .card-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .tag-hot { background: rgba(248,81,73,0.15); color: var(--accent-red); }
+  .tag-policy { background: rgba(210,153,34,0.15); color: var(--accent-orange); }
+  .tag-product { background: rgba(63,185,80,0.15); color: var(--accent-green); }
+  .tag-research { background: rgba(188,140,255,0.15); color: var(--accent-purple); }
+  .tag-industry { background: rgba(88,166,255,0.15); color: var(--accent-blue); }
+  .tag-intl { background: rgba(57,210,192,0.15); color: var(--accent-cyan); }
+  .card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .card h3 a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .card h3 a:hover { color: var(--accent-blue); }
+  .card p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .card-source {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .card-source span { opacity: 0.6; }
+  .deep-card {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-highlight) 100%);
+    border-left: 3px solid var(--accent-purple);
+  }
+  .trend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .trend-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .trend-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+  .trend-card:nth-child(1)::before { background: var(--gradient-1); }
+  .trend-card:nth-child(2)::before { background: var(--gradient-2); }
+  .trend-card:nth-child(3)::before { background: var(--gradient-3); }
+  .trend-card:nth-child(4)::before { background: linear-gradient(135deg, #3fb950 0%, #39d2c0 100%); }
+  .trend-card h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .trend-card p {
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .data-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .data-card:hover { border-color: rgba(88,166,255,0.3); }
+  .data-value {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .data-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+  .data-note {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .insight-box {
+    background: var(--bg-highlight);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .insight-box h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--accent-cyan);
+  }
+  .insight-box p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .insight-box ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+  .insight-box li {
+    color: var(--text-secondary);
+    font-size: 14px;
+    padding: 4px 0;
+    padding-left: 20px;
+    position: relative;
+  }
+  .insight-box li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-cyan);
+  }
+  footer {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+  footer a {
+    color: var(--accent-blue);
+    text-decoration: none;
+  }
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 28px; }
+    .stats-bar { gap: 20px; }
+    .stat-num { font-size: 22px; }
+    .container { padding: 0 16px; }
+    .card { padding: 18px; }
+    .trend-grid { grid-template-columns: 1fr; }
+    .data-grid { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
 </head>
 <body>
 
-<button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-<div class="app">
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-brand">
-        <div class="dot"></div>
-        <span>AI Daily</span>
-        <span class="sub">资讯日报</span>
+<!-- Hero Section -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">DAILY AI BRIEFING</div>
+    <h1>AI 行业资讯日报</h1>
+    <div class="hero-date">2026 年 3 月 29 日 · 星期日</div>
+    <div class="hero-sub">自动抓取 · 多源聚合 · 智能筛选</div>
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">资讯条目</div>
       </div>
-      <input type="text" class="sidebar-search" id="searchInput" placeholder="搜索日期 (如 03-25)...">
+      <div class="stat-item">
+        <div class="stat-num">8</div>
+        <div class="stat-label">信息来源</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4</div>
+        <div class="stat-label">趋势信号</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2</div>
+        <div class="stat-label">深度解读</div>
+      </div>
     </div>
-    <div class="date-list" id="dateList">
-      <div class="loading"><div class="spinner"></div></div>
-    </div>
-    <div class="sidebar-footer">
-      <span class="total" id="totalCount">加载中...</span>
-      <span class="live-dot">每日更新</span>
-    </div>
-  </aside>
-
-  <main class="content" id="content">
-    <div class="empty-state" id="emptyState">
-      <i class="fas fa-satellite-dish"></i>
-      <p>选择左侧日期查看 AI 行业资讯</p>
-    </div>
-  </main>
+  </div>
 </div>
 
-<script>
-const WEEKDAYS = ['周日','周一','周二','周三','周四','周五','周六'];
-let allReports = [];
-let currentDate = null;
+<div class="container">
 
-async function init() {
-  try {
-    const resp = await fetch('manifest.json?t=' + Date.now());
-    const data = await resp.json();
-    allReports = (data.reports || []).sort().reverse();
-  } catch(e) { allReports = []; }
+  <!-- 重点事件 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(248,81,73,0.15);">🔥</div>
+      <div class="section-title">重点事件</div>
+      <div class="section-count">7 条</div>
+    </div>
 
-  renderDateList(allReports);
-  document.getElementById('totalCount').textContent = allReports.length + ' 期日报';
+    <div class="card">
+      <div class="card-tag tag-hot">重磅</div>
+      <h3><a href="https://finance.sina.com.cn/wm/2026-03-26/doc-inhsiqkn0124582.shtml" target="_blank">全球首家超级 AI 医院正式落地海南博鳌</a></h3>
+      <p>在北京 2026 中关村世界数字健康论坛上，国际 AI 医院智联体共识正式发布，全球首家超级 AI 医院同日落地海南博鳌乐城国际医疗旅游先行区。该医院以人工智能驱动医疗全流程改革，构建"线上 AI 平台 + 线下医联体 + 全周期管理"的智慧医疗新模式，内嵌"千病智能体"和"千院智能体"核心模块及 AI 特许药械助手，可全天候运作。院士发问："面对变革，医生能做什么？"</p>
+      <div class="card-source">
+        <span>📰</span> 新浪财经 / 科技日报 / 中关村论坛
+      </div>
+    </div>
 
-  if (allReports.length > 0) {
-    const hash = window.location.hash.replace('#','');
-    loadReport(hash && allReports.includes(hash) ? hash : allReports[0]);
-  }
-}
+    <div class="card">
+      <div class="card-tag tag-industry">大会</div>
+      <h3><a href="https://finance.sina.com.cn/roll/2026-03-28/doc-inhspwhq4337395.shtml" target="_blank">2026 全球开发者先锋大会 (GDPS) 在上海举办</a></h3>
+      <p>大会于 3 月 27-29 日在上海徐汇西岸国际会展中心举办。上海市经信委透露上海人工智能产业规模已超 6370 亿元，正打造"更懂开发者的城市"。大会启动科学智能专项基金，发布爱赛思 OpenAI4S 社区，推进"模塑申城"语料普惠计划 2.0，上海作为全国首个语料公共服务平台运营方，已发布 150 余款备案大模型。</p>
+      <div class="card-source">
+        <span>📰</span> 新浪财经 / 科创板日报
+      </div>
+    </div>
 
-function renderDateList(dates) {
-  const container = document.getElementById('dateList');
-  if (!dates.length) {
-    container.innerHTML = '<div class="empty-state" style="height:200px"><i class="fas fa-inbox" style="font-size:1.5rem"></i><p style="font-size:.85rem">暂无日报</p></div>';
-    return;
-  }
-  const groups = {};
-  dates.forEach(d => {
-    const [y, m] = d.split('-');
-    const key = y + '年' + parseInt(m) + '月';
-    if (!groups[key]) groups[key] = [];
-    groups[key].push(d);
-  });
+    <div class="card">
+      <div class="card-tag tag-product">开源</div>
+      <h3><a href="https://wap.eastmoney.com/a/202603273687058560.html" target="_blank">众智 FlagOS 2.0 发布 — 全球支持 AI 芯片种类最多的系统软件栈</a></h3>
+      <p>由北京智源研究院、中科院计算所、清华大学、北京大学等 23 家核心机构联合开发，FlagOS 2.0 支持 32 款 AI 芯片、497 个算子，全面拥抱智能体时代，将支持范围从大模型训推扩展到具身智能与科学计算。中关村人工智能开源联盟同日正式成立，以 FlagOS 2.0 为核心底座构建开源生态。</p>
+      <div class="card-source">
+        <span>📰</span> 央广网 / 北京日报 / CCTV
+      </div>
+    </div>
 
-  let html = '';
-  let isFirst = true;
-  for (const [month, items] of Object.entries(groups)) {
-    html += '<div class="date-group"><div class="date-group-label">' + month + '</div>';
-    items.forEach(d => {
-      const dt = new Date(d + 'T00:00:00');
-      const weekday = WEEKDAYS[dt.getDay()];
-      const isActive = d === currentDate;
-      const isLatest = isFirst;
-      isFirst = false;
-      html += '<a class="date-item' + (isActive ? ' active' : '') + '" data-date="' + d + '" href="#' + d + '">'
-        + '<div class="date-icon ' + (isLatest ? 'latest' : 'past') + '"><i class="fas fa-' + (isLatest ? 'bolt' : 'newspaper') + '"></i></div>'
-        + '<div class="date-info"><div class="date-title">' + d.slice(5) + '</div><div class="date-weekday">' + weekday + (isLatest ? ' · 最新' : '') + '</div></div>'
-        + '</a>';
-    });
-    html += '</div>';
-  }
-  container.innerHTML = html;
-  container.querySelectorAll('.date-item').forEach(el => {
-    el.addEventListener('click', function(e) { e.preventDefault(); loadReport(this.dataset.date); });
-  });
-}
+    <div class="card">
+      <div class="card-tag tag-intl">国际</div>
+      <h3><a href="https://zhuanlan.zhihu.com/p/2021503963669774555" target="_blank">OpenAI 推出 Codex 用例库，全面展示应用场景与使用技巧</a></h3>
+      <p>OpenAI 近日推出 "Codex Use Cases" 实用示例库，全面展示 Codex 在编程与软件工程领域的应用场景和最佳实践。此前 OpenAI 已发布 GPT-5.3-Codex 原生编程智能体，将前沿编程性能与通用推理能力结合，并推出 Codex Security 安全研究预览版，用于检测、验证和修复代码漏洞。</p>
+      <div class="card-source">
+        <span>📰</span> OpenAI / 知乎 AI 早报
+      </div>
+    </div>
 
-function loadReport(date) {
-  currentDate = date;
-  window.location.hash = date;
-  document.querySelectorAll('.date-item').forEach(el => el.classList.toggle('active', el.dataset.date === date));
-  const content = document.getElementById('content');
-  const es = document.getElementById('emptyState');
-  if (es) es.remove();
-  let iframe = content.querySelector('iframe');
-  if (!iframe) { iframe = document.createElement('iframe'); content.appendChild(iframe); }
-  iframe.src = 'reports/' + date + '.html';
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
-}
+    <div class="card">
+      <div class="card-tag tag-research">科研</div>
+      <h3>通用智能人"通通"发布 3.0 版本</h3>
+      <p>全球首个通用智能人"通通"发布 3.0 版本，展示了机器人核心引擎"通脑"，以及 3D 仿真虚拟世界"AI 小镇"和 AI 教育平台等全新成果，从核心引擎到虚拟世界的全面升级标志着通用智能研究的重要进展。</p>
+      <div class="card-source">
+        <span>📰</span> 新浪科技
+      </div>
+    </div>
 
-document.getElementById('searchInput').addEventListener('input', function() {
-  const q = this.value.trim().toLowerCase();
-  renderDateList(q ? allReports.filter(d => d.includes(q)) : allReports);
-});
-document.getElementById('mobileToggle').addEventListener('click', function() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('sidebarOverlay').classList.toggle('open');
-});
-document.getElementById('sidebarOverlay').addEventListener('click', function() {
-  document.getElementById('sidebar').classList.remove('open');
-  this.classList.remove('open');
-});
-window.addEventListener('hashchange', function() {
-  const d = window.location.hash.replace('#','');
-  if (d && allReports.includes(d) && d !== currentDate) loadReport(d);
-});
-init();
-</script>
+    <div class="card">
+      <div class="card-tag tag-policy">投资</div>
+      <h3>中关村论坛 AI 未来论坛 — 6 家头部投资机构集中签约</h3>
+      <p>红杉中国、高瓴创投等 6 家头部投资机构作为投资生态伙伴在中关村论坛 AI 未来论坛上集中签约，彰显资本对人工智能产业发展的坚定信心。吴文俊人工智能科学技术奖颁奖典礼同期在常州举行，该市已集聚 AI 企业 300 多家。</p>
+      <div class="card-source">
+        <span>📰</span> 新浪科技
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-tag tag-policy">政策</div>
+      <h3>AI 训练数据治理刻不容缓，各地加速 AI 产业布局</h3>
+      <p>论坛专家指出"人工智能训练数据治理已刻不容缓，要推动人工智能健康发展，必须净化数据源头，筑牢安全底座"。与此同时，数字经济、人工智能、具身智能等新赛道上，地方政府入局未来产业的速度正在加快，AI 落地应用正在从概念走向规模化。</p>
+      <div class="card-source">
+        <span>📰</span> 新浪科技 / 科创板日报
+      </div>
+    </div>
+  </div>
+
+  <!-- 趋势信号 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(188,140,255,0.15);">📡</div>
+      <div class="section-title">趋势信号</div>
+      <div class="section-count">4 项</div>
+    </div>
+    <div class="trend-grid">
+      <div class="trend-card">
+        <h4>🔄 从"拼算法"到"拼数据"</h4>
+        <p>上海发布"模塑申城"语料普惠计划 2.0，计划到明年底语料规模超 10PB。产业竞争焦点正在从算法和模型转向高质量数据的获取和治理，数据成为 AI 发展的关键胜负手。</p>
+      </div>
+      <div class="trend-card">
+        <h4>⚠️ 高质量数据 2028 年耗尽预警</h4>
+        <p>专家樊威指出高质量文本数据将于 2028 年耗尽，企业竞争关键已转向掌握私域数据或形成真正的数据合成能力，谁先跨过这道门槛，谁就掌握下一阶段的竞争优势。</p>
+      </div>
+      <div class="trend-card">
+        <h4>🏥 AI 医疗进入"超级医院"阶段</h4>
+        <p>从辅助诊断到驱动全流程，AI 医疗正在从"工具辅助"进化到"系统重构"。超级 AI 医院的落地标志着行业从单点突破转向生态级部署，AI 全科医生的能力已可比肩专业医生。</p>
+      </div>
+      <div class="trend-card">
+        <h4>💼 AI 对青年就业冲击显现</h4>
+        <p>韩国数据显示 AI 冲击下，专业科学技术服务业与信息通信业就业人数同比减少，主要集中于 20-30 岁群体。AI 替代效应从预测走向现实，劳动力市场结构性调整已在发生。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 深度解读 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(63,185,80,0.15);">🔬</div>
+      <div class="section-title">深度解读 · HugoZhou Blog</div>
+      <div class="section-count">2 篇</div>
+    </div>
+
+    <div class="card deep-card">
+      <div class="card-tag tag-research">架构思考</div>
+      <h3><a href="https://hugozhu.site/post/2026/160-agent-architecture-platform-competition/" target="_blank">Agent 的架构之战：从 Desktop 到 AI 时代，架构决定平台的生死</a></h3>
+      <p>文章以平台演进史为脉络，提出 Agent 时代的竞争核心不是模型能力，而是架构设计。回顾 Windows vs OS/2、iOS vs Symbian、Chrome vs IE 的历史，指出"每一代平台级产品的竞争，最终都不是功能之争，而是架构之争"。文章剖析了 Agent 架构的五个关键决策：编排方式（硬编码 vs 动态规划）、状态管理（无状态 vs 有记忆）、工具体系（封闭 vs 开放）、多模型协作（单脑 vs 多脑）、部署架构（云端 vs 端侧 vs 混合），提出正确答案是混合架构——关键路径用编排保证可靠性，长尾场景用动态规划保证灵活性。</p>
+      <div class="card-source">
+        <span>✍️</span> HugoZhou · 2026-03-29
+      </div>
+    </div>
+
+    <div class="card deep-card">
+      <div class="card-tag tag-research">企业实践</div>
+      <h3><a href="https://hugozhu.site/post/2026/161-enterprise-ai-accountability-by-design/" target="_blank">企业级 AI 必须设计成出错后可以追责到人</a></h3>
+      <p>当 AI 从辅助工具变为执行主体，"出了事，找谁？"成为被低估的核心问题。文章指出传统软件责任清晰，但 AI Agent 涉及需求方、配置者、开发者等多角色，导致"责任被分散在整条链路上，最后没有人承担"。作者强调可追责是设计原则而非事后日志，需在架构层面回答四个问题：谁授权了行为、谁定义了边界、谁在监控运行、出了问题谁来定责。给团队的建议："先定责任，再写代码"，每个 Agent 必须有且仅有一个业务 Owner。</p>
+      <div class="card-source">
+        <span>✍️</span> HugoZhou · 2026-03-29
+      </div>
+    </div>
+  </div>
+
+  <!-- 钉钉启示 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(57,210,192,0.15);">💡</div>
+      <div class="section-title">行业启示</div>
+    </div>
+
+    <div class="insight-box">
+      <h4>🏗️ Agent 架构是战略决策，不是技术选型</h4>
+      <p>HugoZhou 的架构之战文章揭示了一个核心洞察：Agent 产品的竞争将在架构层面定胜负。对于正在构建 AI 平台的团队，应尽早在以下维度做出架构决策：</p>
+      <ul>
+        <li>混合编排：高频场景走确定性流程，复杂任务交给模型自主规划</li>
+        <li>多模型协作：路由模型 + 专项模型 + 验证模型的分层架构</li>
+        <li>开放工具生态：标准化接口 + 分层信任机制（内置 / 认证 / 社区）</li>
+      </ul>
+    </div>
+
+    <div class="insight-box">
+      <h4>⚖️ 可追责性是 AI 上线的前提条件</h4>
+      <p>企业部署 AI Agent 时，"先定责任，再写代码"应成为铁律。每个 Agent 必须有明确的业务 Owner，每个行为边界必须有人类负责人，"AI 做的"不能成为合法答案。建议建立四层追责框架：操作审计 → 决策溯源 → 责任架构 → 降级演练。</p>
+    </div>
+
+    <div class="insight-box">
+      <h4>📊 数据为王时代正式到来</h4>
+      <p>上海语料普惠计划 2.0 和数据耗尽预警共同指向一个信号：AI 竞争的下半场是数据之战。高质量文本数据将在 2028 年耗尽，企业需要提前布局私域数据治理、数据合成能力和语料资产管理。率先跨过数据门槛的企业将在下一阶段占据先机。</p>
+    </div>
+  </div>
+
+  <!-- 数据快照 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(210,153,34,0.15);">📊</div>
+      <div class="section-title">数据快照</div>
+    </div>
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="data-value" style="color:var(--accent-blue);">6370亿</div>
+        <div class="data-label">上海 AI 产业规模</div>
+        <div class="data-note">2025 年数据</div>
+      </div>
+      <div class="data-card">
+        <div class="data-value" style="color:var(--accent-green);">4500亿</div>
+        <div class="data-label">北京 AI 产业规模</div>
+        <div class="data-note">占全国半数</div>
+      </div>
+      <div class="data-card">
+        <div class="data-value" style="color:var(--accent-purple);">2500+</div>
+        <div class="data-label">北京 AI 企业数量</div>
+        <div class="data-note">融资占全国 40%+</div>
+      </div>
+      <div class="data-card">
+        <div class="data-value" style="color:var(--accent-orange);">150+</div>
+        <div class="data-label">上海备案大模型</div>
+        <div class="data-note">全国首个语料平台</div>
+      </div>
+      <div class="data-card">
+        <div class="data-value" style="color:var(--accent-cyan);">32 款</div>
+        <div class="data-label">FlagOS 2.0 支持芯片</div>
+        <div class="data-note">497 个算子</div>
+      </div>
+      <div class="data-card">
+        <div class="data-value" style="color:var(--accent-red);">300+</div>
+        <div class="data-label">常州 AI 企业数量</div>
+        <div class="data-note">吴文俊奖落地城市</div>
+      </div>
+      <div class="data-card">
+        <div class="data-value" style="color:var(--accent-blue);">10PB</div>
+        <div class="data-label">语料普惠 2.0 目标</div>
+        <div class="data-note">计划明年底达成</div>
+      </div>
+      <div class="data-card">
+        <div class="data-value" style="color:var(--accent-green);">2028</div>
+        <div class="data-label">数据耗尽预警年份</div>
+        <div class="data-note">高质量文本数据</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 国际动态速览 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(88,166,255,0.15);">🌍</div>
+      <div class="section-title">国际动态速览</div>
+      <div class="section-count">本周精选</div>
+    </div>
+
+    <div class="card">
+      <div class="card-tag tag-intl">OpenAI</div>
+      <h3>OpenAI 计划年内员工数翻倍，推进多条产品线</h3>
+      <p>据 FT 报道，OpenAI 计划 2026 年将员工数量翻近一倍。同时 OpenAI 已宣布关停 Sora 视频生成工具，将资源转向代号为"Spud"的下一代旗舰模型。GPT-5.4 mini 和 nano 小型化模型已正式发布，针对高频工作负载提供更快速度和更低成本。</p>
+    </div>
+
+    <div class="card">
+      <div class="card-tag tag-intl">行业</div>
+      <h3>Cursor 实时强化学习、Cognition Devin 自主编程引关注</h3>
+      <p>Cursor 引入"Real-time RL"机制，使用推理 token 作为奖励信号，Composer 更新频率可达每 5 小时一次。Cognition 的 AI 软件工程师 Devin 据报道已可"从头到尾构建软件而无需人类参与"。开源闭源模型可盈利差距正在快速缩小。</p>
+    </div>
+
+    <div class="card">
+      <div class="card-tag tag-intl">研究</div>
+      <h3>LeCun 团队 LeWorldModel、Meta TRIBE v2 等研究突破</h3>
+      <p>Yann LeCun 团队构建了 1500 万参数的 JEPA 模型 LeWorldModel，可在单 GPU 上一秒内完成规划。AMI Labs 融资 10.3 亿美元构建世界模型。Meta 发布 TRIBE v2 基础模型，可预测人脑对视觉和听觉刺激的响应。Anthropic 百万 token 上下文窗口已全面开放。</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>AI 行业资讯日报 · 自动生成于 2026-03-30</p>
+    <p style="margin-top:6px;">
+      信源：<a href="https://hugozhu.site" target="_blank">HugoZhou Blog</a> ·
+      新浪科技 · 科创板日报 · OpenAI · Radical Data Science ·
+      <a href="https://alidocs.dingtalk.com/i/nodes/ZX6GRezwJlzeYoPLFQroe3joWdqbropQ" target="_blank">AI 信息源管理表</a>
+    </p>
+    <p style="margin-top:6px;color:var(--text-muted);">Powered by QoderWork AI News Daily Skill</p>
+  </div>
+</footer>
+
 </body>
 </html>
